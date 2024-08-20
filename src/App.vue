@@ -1,68 +1,71 @@
 <template>
-    <div class="container">
-        <h1>Simple Quiz</h1>
-        <hr />
-        <Question
-            v-if="data.length > 0 && !showResults"
-            :questionData="data[number]"
-            @update-number="updateNumber"
-            :updateCount="updateCount"
-        ></Question>
-        <h3 v-else-if="data.length === 0">Loading...</h3>
-        <h3 v-else-if="!loading && data.length === 0">No Data Available</h3>
-        <Results
-            v-if="showResults"
-            :count="correctAnswers"
-            :length="data.length"
-        ></Results>
+    <div class="app-container">
+        <div class="header">
+            <QuizHeader />
+            <ThemeSwitcher :isDark="isDark" :toggleDark="toggleDark" />
+        </div>
+        <RouterView />
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, Ref, ref } from "vue";
-import Question from "./components/Question.vue";
-import Results from "./components/Results.vue";
-import { QuestionDataInt } from "./types/type";
+import { useDark, useToggle } from "@vueuse/core";
 
-const data: Ref<QuestionDataInt[]> = ref([]);
-const number: Ref<number> = ref(0);
-const showResults: Ref<Boolean> = ref(false);
-const correctAnswers: Ref<number> = ref(0);
-const loading: Ref<Boolean> = ref(true);
+import { onMounted } from "vue";
+import ThemeSwitcher from "./components/ThemeSwitcher.vue";
+import { useQuizStore } from "./store/store";
+import QuizHeader from "./components/QuizHeader.vue";
+
+const isDark = useDark({
+    selector: "body",
+    attribute: "theme",
+    valueDark: "custom-light",
+    valueLight: "custom-dark",
+});
+const toggleDark = useToggle(isDark);
+
+const store = useQuizStore();
 
 onMounted(async () => {
     try {
-        data.value = await getData();
+        store.data = await store.getData();
     } catch (err) {
         console.log("Error fetching data: ", err);
     } finally {
-        loading.value = false;
+        store.loading = false;
     }
 });
-
-async function getData() {
-    let response: Response = await fetch("/data.json");
-    if (!response.ok) {
-        loading.value = false;
-        throw new Error("Failed to fetch data");
-    }
-    return response.json();
-}
-
-function updateNumber() {
-    if (number.value + 1 === data.value.length) {
-        showResults.value = true;
-        return;
-    }
-    number.value++;
-}
-
-function updateCount() {
-    correctAnswers.value++;
-}
 </script>
 
 <style>
+:root {
+    --pink-color: rgb(243, 74, 243);
+    --purple-color: rgb(149, 48, 243);
+    --dark-option-bg-color: rgb(60, 76, 100);
+    --dark-app-bg-color: rgba(49, 62, 81, 255);
+    --dark-bar-bg-color: rgba(60, 77, 102, 255);
+    --white-color: white;
+    --black-color: rgb(49 62 81);
+    --light-letter-bg-color: rgb(244 246 250);
+    --light-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+[theme="custom-dark"] {
+    --option-bg-color: rgb(60, 76, 100);
+    --letter-bg-color: white;
+    --box-shadow: none;
+    color: #ffffff;
+    background-color: rgba(49, 62, 81, 255);
+}
+
+[theme="custom-light"] {
+    --option-bg-color: var(--white-color);
+    --letter-bg-color: var(--light-letter-bg-color);
+    --box-shadow: var(--light-box-shadow);
+    color: rgb(49 62 81);
+    background-color: rgb(246, 246, 246);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -70,25 +73,40 @@ function updateCount() {
 }
 
 body {
+    color: white;
+    font-family: "Roboto", sans-serif;
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
-h1 {
-    margin-bottom: 15px;
-}
-
-hr {
-    margin-bottom: 15px;
-}
-
-.container {
+.app-container {
+    width: 100vw;
     display: flex;
     flex-direction: column;
-    width: 400px;
+    justify-content: flex-start;
+    transition: padding 0.2s ease;
+    max-width: 1280px;
+    padding: 0 1.5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+@media (min-width: 1025px) {
+    .app-container {
+        padding: 0 3rem;
+        padding-bottom: 6rem;
+    }
+    .header {
+        padding-bottom: 100px;
+    }
 }
 </style>

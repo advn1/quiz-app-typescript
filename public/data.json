@@ -1,42 +1,187 @@
 [
     {
-        "id": 1,
-        "question": "What is the capital of France?",
-        "answer": "Paris",
-        "options": ["Berlin", "Madrid", "Paris", "Rome"]
-    },
-    {
-        "id": 2,
-        "question": "What is 2 + 2?",
-        "answer": "4",
-        "options": ["3", "4", "5", "6"]
-    },
-    {
-        "id": 3,
-        "question": "Which planet is known as the Red Planet?",
-        "answer": "Mars",
-        "options": ["Earth", "Jupiter", "Mars", "Venus"]
-    },
-    {
-        "id": 4,
-        "question": "What is the largest ocean on Earth?",
-        "answer": "Pacific Ocean",
-        "options": [
-            "Atlantic Ocean",
-            "Indian Ocean",
-            "Arctic Ocean",
-            "Pacific Ocean"
+        "topic": "HTML",
+        "questions": [
+            {
+                "id": 1,
+                "question": "What does HTML stand for?",
+                "answer": "HyperText Markup Language",
+                "options": [
+                    "HyperText Markdown Language",
+                    "HyperText Markup Language",
+                    "HyperLoop Machine Language",
+                    "Hyper Tool Markup Language"
+                ]
+            },
+            {
+                "id": 2,
+                "question": "Which HTML element is used to define a header for a document or section?",
+                "answer": "<header>",
+                "options": ["<header>", "<head>", "<top>", "<section>"]
+            },
+            {
+                "id": 3,
+                "question": "Which tag is used to create a hyperlink in HTML?",
+                "answer": "<a>",
+                "options": ["<link>", "<a>", "<href>", "<url>"]
+            },
+            {
+                "id": 4,
+                "question": "How can you make a numbered list?",
+                "answer": "<ol>",
+                "options": ["<ul>", "<ol>", "<li>", "<list>"]
+            },
+            {
+                "id": 5,
+                "question": "Which HTML element is used to specify a footer for a document or section?",
+                "answer": "<footer>",
+                "options": ["<footer>", "<bottom>", "<section>", "<foot>"]
+            }
         ]
     },
     {
-        "id": 5,
-        "question": "Who wrote 'Romeo and Juliet'?",
-        "answer": "William Shakespeare",
-        "options": [
-            "Charles Dickens",
-            "Mark Twain",
-            "William Shakespeare",
-            "Ernest Hemingway"
+        "topic": "CSS",
+        "questions": [
+            {
+                "id": 1,
+                "question": "What does CSS stand for?",
+                "answer": "Cascading Style Sheets",
+                "options": [
+                    "Cascading Style Sheets",
+                    "Creative Style System",
+                    "Computer Style Sheets",
+                    "Cascading System Sheets"
+                ]
+            },
+            {
+                "id": 2,
+                "question": "Which CSS property is used to change the text color of an element?",
+                "answer": "color",
+                "options": [
+                    "font-color",
+                    "text-color",
+                    "color",
+                    "background-color"
+                ]
+            },
+            {
+                "id": 3,
+                "question": "Which CSS property controls the text size?",
+                "answer": "font-size",
+                "options": ["font-size", "text-size", "size", "font-weight"]
+            },
+            {
+                "id": 4,
+                "question": "How do you make each word in a text start with a capital letter?",
+                "answer": "text-transform: capitalize;",
+                "options": [
+                    "text-transform: uppercase;",
+                    "text-transform: capitalize;",
+                    "text-transform: lowercase;",
+                    "text-transform: none;"
+                ]
+            },
+            {
+                "id": 5,
+                "question": "Which property is used to change the background color?",
+                "answer": "background-color",
+                "options": [
+                    "background-color",
+                    "bg-color",
+                    "color",
+                    "background"
+                ]
+            }
+        ]
+    },
+    {
+        "topic": "JavaScript",
+        "questions": [
+            {
+                "id": 1,
+                "question": "Which company developed JavaScript?",
+                "answer": "Netscape",
+                "options": ["Mozilla", "Microsoft", "Netscape", "Oracle"]
+            },
+            {
+                "id": 2,
+                "question": "Which symbol is used for comments in JavaScript?",
+                "answer": "//",
+                "options": ["//", "/*", "<!--", "#"]
+            },
+            {
+                "id": 3,
+                "question": "How do you declare a JavaScript variable?",
+                "answer": "var name;",
+                "options": [
+                    "variable name;",
+                    "v name;",
+                    "var name;",
+                    "let name;"
+                ]
+            },
+            {
+                "id": 4,
+                "question": "What is the output of: '2' + 2 in JavaScript?",
+                "answer": "'22'",
+                "options": ["4", "22", "'22'", "'4'"]
+            },
+            {
+                "id": 5,
+                "question": "Which built-in method combines the text of two strings and returns a new string?",
+                "answer": "concat()",
+                "options": ["append()", "attach()", "combine()", "concat()"]
+            }
+        ]
+    },
+    {
+        "topic": "Accessibility",
+        "questions": [
+            {
+                "id": 1,
+                "question": "What does WCAG stand for?",
+                "answer": "Web Content Accessibility Guidelines",
+                "options": [
+                    "Web Content Accessibility Guidelines",
+                    "World Code Accessibility Group",
+                    "Web Code Accessibility Guide",
+                    "World Content Accessibility Guidelines"
+                ]
+            },
+            {
+                "id": 2,
+                "question": "Which HTML attribute provides alternative text for images?",
+                "answer": "alt",
+                "options": ["alt", "title", "aria-label", "description"]
+            },
+            {
+                "id": 3,
+                "question": "What is the purpose of semantic HTML?",
+                "answer": "To improve accessibility and SEO",
+                "options": [
+                    "To add styling",
+                    "To improve accessibility and SEO",
+                    "To make the website faster",
+                    "To provide a framework for CSS"
+                ]
+            },
+            {
+                "id": 4,
+                "question": "Which of the following is a screen reader?",
+                "answer": "JAWS",
+                "options": ["JAWS", "VoiceOver", "Narrator", "All of the above"]
+            },
+            {
+                "id": 5,
+                "question": "What is ARIA used for?",
+                "answer": "To enhance accessibility of dynamic content",
+                "options": [
+                    "To enhance accessibility of dynamic content",
+                    "To style elements",
+                    "To improve page speed",
+                    "To create animations"
+                ]
+            }
         ]
     }
 ]
