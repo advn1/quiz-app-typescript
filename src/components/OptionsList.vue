@@ -2,12 +2,14 @@
     <div class="options-list">
         <Option
             v-for="(option, idx) in props.options"
-            :key="idx"
+            :key="`${idx}-${letterBgColor}`"
             class="option"
             :class="[optionClasses(option as string), {hovered: props.clicked === option}]"
             :letter="letters[idx]"
             :text="option"
+            :letterBgColor="letterBgColor"
             @click.prevent="handleClickOption(option as string)"
+            :redGreen="optionClasses"
         />
     </div>
 </template>
@@ -15,7 +17,7 @@
 <script setup lang="ts">
 import { useQuizStore } from "@/store/store";
 import Option from "./Option.vue";
-import { computed, PropType } from "vue";
+import { computed, PropType, ref, watch } from "vue";
 
 const props = defineProps({
     answer: {
@@ -31,11 +33,23 @@ const props = defineProps({
         required: true,
     },
     updateClickedOption: {
-        type: Function as PropType<(opt: string) => void>,
+        type: Function as PropType<(opt: string) => string>,
         required: true,
     },
     isSubmit: {
         type: Boolean,
+        required: true,
+    },
+    setIsNotSelected: {
+        type: Function as PropType<() => void>,
+        required: true,
+    },
+    letterBgColor: {
+        type: String,
+        required: true
+    },
+    setLetterBgColor: {
+        type: Function as PropType<(v: string) => void>,
         required: true,
     },
 });
@@ -46,7 +60,6 @@ const letters = ["A", "B", "C", "D"];
 
 const optionClasses = computed(() => {
     return (opt: string) => {
-        console.log(props.isSubmit);
         if (props.isSubmit) {
             return {
                 green:
@@ -59,15 +72,20 @@ const optionClasses = computed(() => {
     };
 });
 
+watch(() => props.options, () => {
+    props.setLetterBgColor("")
+});
+
 function handleClickOption(opt: string) {
-    if (props.isSubmit) {
-        return;
-    }
+    props.setIsNotSelected();
     if (props.answer === opt) {
         updateCorrectAnswers();
     }
-    props.updateClickedOption(opt);
+
+    props.setLetterBgColor(opt);
+    props.updateClickedOption(opt)
 }
+
 </script>
 
 <style scoped>
@@ -76,7 +94,7 @@ function handleClickOption(opt: string) {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
 }
 
@@ -86,14 +104,14 @@ function handleClickOption(opt: string) {
 }
 
 .hovered {
-    background-color: rgb(123, 123, 123) !important;
+    background-color: rgb(123, 123, 123);
 }
 
 .green {
-    background-color: green !important;
+    border: 2px solid green ;
 }
 
 .red {
-    background-color: red !important;
+    border: 2px solid red ;
 }
 </style>

@@ -22,7 +22,11 @@
                 :clicked="clicked"
                 :updateClickedOption="updateClickedOption"
                 :isSubmit="isSubmit"
+                :setIsNotSelected="setIsNotSelected"
+                :letterBgColor="letterBgColor"
+                :setLetterBgColor="setLetterBgColor"
             />
+            <span class="select-answer" :class="notSelectAnswer">Please select an answer</span>
             <button
                 @click.prevent="nextQuestion"
                 class="submit-btn"
@@ -55,6 +59,8 @@ const showResults = ref(false);
 const clicked = ref(""); // clicked option
 const isSubmit = ref(false);
 const buttonState = ref("Submit Answer");
+
+const isNotSelected = ref(true)
 
 const topics: string[] = [];
 store.data.forEach((quiz) => topics.push(quiz.topic.toLowerCase()));
@@ -99,8 +105,15 @@ const options = computed(() => {
 
 const progressBarWidth = computed(() => (questionNumber.value / 5) * 100);
 
+let notSelectAnswer = computed(() => {
+    return { wtf: isNotSelected.value };
+});
+
+const letterBgColor = ref("")
+
 function nextQuestion() {
     if (clicked.value.length === 0) {
+        isNotSelected.value = false
         return;
     }
 
@@ -117,13 +130,17 @@ function nextQuestion() {
     } else {
         buttonState.value = "Next Question";
         isSubmit.value = true;
+        setLetterBgColor("")
     }
 }
 
-function updateClickedOption(opt: string) {
-    clicked.value = "";
-    clicked.value = opt;
+function updateClickedOption(opt: string): string {
+    console.log("Setting clicked to:", opt);
+    clicked.value = opt;  // This should persist before any re-render
+    console.log("Updated clicked:", clicked.value);
+    return clicked.value
 }
+
 
 function resetQuizState() {
     questionNumber.value = 1;
@@ -132,6 +149,14 @@ function resetQuizState() {
     clicked.value = "";
     isSubmit.value = false;
     buttonState.value = "Submit Answer";
+}
+
+function setIsNotSelected() {
+    isNotSelected.value = true
+}
+
+function setLetterBgColor(v: string) {
+    letterBgColor.value = v
 }
 </script>
 
@@ -155,7 +180,7 @@ function resetQuizState() {
 .right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .submit-btn {
@@ -171,6 +196,13 @@ function resetQuizState() {
     background-color: var(--purple-color);
 }
 
+.select-answer {
+    align-self: center;
+    color: red;
+    padding: 10px 0;
+    font-size: 1.4rem;
+}
+
 @media (min-width: 1025px) {
     .quiz-data-container {
         align-self: center;
@@ -178,5 +210,9 @@ function resetQuizState() {
         justify-content: flex-start;
         align-items: flex-start;
     }
+}
+
+.wtf {
+    display: none;
 }
 </style>
