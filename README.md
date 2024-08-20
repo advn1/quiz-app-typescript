@@ -46,3 +46,4 @@ Users should be able to:
 - See an error message when trying to submit an answer without making a selection
 - Better select option, right/wrong answer style
 - Show error message when submitting answer without selection
+- Button go home at quiz page and results page
