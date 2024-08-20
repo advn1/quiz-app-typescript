@@ -48,7 +48,7 @@ function redirectQuiz() {
 
 <style scoped>
 .results {
-    padding: 2.5rem 1rem;
+    padding: 0 1rem;
     width: 100%;
     display: flex;
     flex-direction: column;
