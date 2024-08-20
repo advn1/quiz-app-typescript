@@ -4,6 +4,7 @@ import Quiz from "./components/Quiz.vue";
 import NotFound from "./components/NotFound.vue";
 
 const routes = [
+    {path: '/', redirect: '/home'},
     {path: '/home', component: Home},
     {path: '/quiz/:name', component: Quiz},
     {path: '/:pathMatch(.*)*', component: NotFound},
